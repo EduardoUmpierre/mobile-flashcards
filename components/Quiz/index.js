@@ -41,6 +41,14 @@ class Quiz extends Component {
     this.setState(prevState => ({ showAnswer: !prevState.showAnswer }))
   }
 
+  restartQuiz = () => {
+    this.setState({
+      question: 0,
+      score: 0,
+      showAnswer: false,
+    })
+  }
+
   render() {
     const { cards, navigation } = this.props
     const { question, score, showAnswer } = this.state
@@ -64,13 +72,24 @@ class Quiz extends Component {
                 buttons.buttonContainer,
                 {
                   marginTop: 20,
+                },
+              ]}
+              onPress={() => this.restartQuiz()}
+            >
+              <Text style={buttons.button}>Restart Quiz</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                buttons.buttonContainer,
+                {
                   marginBottom: 20,
                 },
               ]}
               onPress={() => navigation.pop()}
             >
               <Text style={[buttons.button, buttons.primary]}>
-                Back to Flashcard
+                Back to Deck
               </Text>
             </TouchableOpacity>
           </View>
