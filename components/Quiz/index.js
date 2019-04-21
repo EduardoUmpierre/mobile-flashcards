@@ -54,7 +54,9 @@ class Quiz extends Component {
           <View style={styles.container}>
             <View style={[containers.centeredContainer, { marginTop: 20 }]}>
               <Text style={styles.title}>Your Score</Text>
-              <Text style={styles.score}>{(score / totalCards) * 100}%</Text>
+              <Text style={styles.score}>
+                {((score / totalCards) * 100).toFixed(0)}%
+              </Text>
             </View>
 
             <TouchableOpacity
