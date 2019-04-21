@@ -28,7 +28,7 @@ class DeckForm extends Component {
 
         dispatch(addFlashcard({ [id]: flashcard }))
         this.setState({ title: '' })
-        navigation.navigate('DeckView', { key: id })
+        navigation.navigate('DeckView', { title: flashcard.name, key: id })
       })
     }
   }

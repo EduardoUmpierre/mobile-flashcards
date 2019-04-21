@@ -24,7 +24,7 @@ class CardForm extends Component {
 
       submitEntry({ key: id, entry: updatedFlashcard })
       dispatch(addCard(id, card))
-      navigation.navigate('DeckView', { key: id })
+      navigation.pop()
     }
   }
 

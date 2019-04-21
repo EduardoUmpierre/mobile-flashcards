@@ -1,5 +1,11 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  View,
+  Text,
+} from 'react-native'
 import { connect } from 'react-redux'
 import DeckSummary from '../DeckSummary'
 import { fetchFlashcardResults } from '../../utils/api'
@@ -34,6 +40,19 @@ class DeckList extends React.Component {
             </TouchableOpacity>
           )
         })}
+
+        {Object.keys(flashcards).length === 0 && (
+          <View style={[styles.deck, { padding: 40 }]}>
+            <Text
+              style={{
+                color: '#333',
+                fontSize: 20,
+              }}
+            >
+              There are no decks available.
+            </Text>
+          </View>
+        )}
       </ScrollView>
     )
   }
