@@ -10,7 +10,7 @@ class DeckView extends React.Component {
   })
 
   render() {
-    const { flashcard, navigation } = this.props
+    const { flashcard, navigation, id } = this.props
     const isQuizButtonDisabled = flashcard.cards.length === 0
 
     return (
@@ -20,14 +20,15 @@ class DeckView extends React.Component {
         </View>
 
         <View>
-          <TouchableOpacity style={buttons.buttonContainer}>
+          <TouchableOpacity
+            style={buttons.buttonContainer}
+            onPress={() => navigation.navigate('CardForm', { key: id })}
+          >
             <Text style={buttons.button}>Add Card</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[buttons.buttonContainer, { marginBottom: 20 }]}
-            onPress={() =>
-              navigation.navigate('Quiz', { key: navigation.state.params.key })
-            }
+            onPress={() => navigation.navigate('Quiz', { key: id })}
             disabled={isQuizButtonDisabled}
           >
             <Text
@@ -54,11 +55,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ flashcards }, { navigation }) => {
-  const key = navigation.state.params.key
-  const flashcard = flashcards[key]
+  const id = navigation.state.params.key
+  const flashcard = flashcards[id]
 
   return {
-    key,
+    id,
     flashcard,
   }
 }

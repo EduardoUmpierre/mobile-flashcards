@@ -33,6 +33,7 @@ class Quiz extends Component {
     this.setState(prevState => ({
       score: answer ? prevState.score + 1 : prevState.score,
       question: prevState.question + 1,
+      showAnswer: false,
     }))
   }
 

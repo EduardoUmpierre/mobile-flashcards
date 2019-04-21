@@ -9,6 +9,7 @@ import DeckView from './components/DeckView'
 import reducer from './reducers'
 import Quiz from './components/Quiz'
 import DeckForm from './components/DeckForm'
+import CardForm from './components/CardForm'
 
 const Tabs = TabNavigator(
   {
@@ -47,6 +48,9 @@ const Navigator = StackNavigator(
     },
     Quiz: {
       screen: Quiz,
+    },
+    CardForm: {
+      screen: CardForm,
     },
   },
   {
