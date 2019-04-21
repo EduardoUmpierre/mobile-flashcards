@@ -1,17 +1,46 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, StatusBar } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator } from 'react-navigation'
+import { Constants } from 'expo'
 import DeckList from './components/DeckList'
 import DeckView from './components/DeckView'
 import reducer from './reducers'
 import Quiz from './components/Quiz'
+import DeckForm from './components/DeckForm'
+
+const Tabs = TabNavigator(
+  {
+    Home: {
+      screen: DeckList,
+      navigationOptions: {
+        tabBarLabel: 'Decks',
+      },
+    },
+    DeckForm: {
+      screen: DeckForm,
+      navigationOptions: {
+        tabBarLabel: 'Add Deck',
+      },
+    },
+  },
+  {
+    navigationOptions: {
+      header: null,
+    },
+    tabBarOptions: {
+      style: {
+        height: 56,
+      },
+    },
+  }
+)
 
 const Navigator = StackNavigator(
   {
     Home: {
-      screen: DeckList,
+      screen: Tabs,
     },
     DeckView: {
       screen: DeckView,
@@ -30,6 +59,18 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={styles.container}>
+          <View
+            style={{
+              backgroundColor: '#333',
+              height: Constants.statusBarHeight,
+            }}
+          >
+            <StatusBar
+              translucent
+              backgroundColor={'#333'}
+              barStyle="light-content"
+            />
+          </View>
           <Navigator />
         </View>
       </Provider>

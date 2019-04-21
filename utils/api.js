@@ -3,16 +3,11 @@ import { AsyncStorage } from 'react-native'
 const STORAGE_KEY = 'mobile-flashcards:flashcards'
 
 export function fetchFlashcardResults() {
-  return AsyncStorage.getItem(STORAGE_KEY).then(e => e)
+  return AsyncStorage.getItem(STORAGE_KEY).then(result => JSON.parse(result))
 }
 
 export function submitEntry({ entry, key }) {
-  return AsyncStorage.mergeItem(
-    STORAGE_KEY,
-    JSON.stringify({
-      [key]: entry,
-    })
-  )
+  return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({ [key]: entry }))
 }
 
 export function removeEntry(key) {

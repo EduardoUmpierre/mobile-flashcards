@@ -31,3 +31,22 @@ export const containers = {
     justifyContent: 'center',
   },
 }
+
+export const forms = {
+  container: {
+    padding: 20,
+  },
+  label: {
+    color: '#333',
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  input: {
+    padding: 15,
+    fontSize: 20,
+    borderWidth: 1,
+    borderRadius: 3,
+    borderStyle: 'solid',
+    borderColor: '#333',
+  },
+}

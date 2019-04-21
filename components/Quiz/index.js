@@ -21,6 +21,8 @@ function shuffle(array) {
 }
 
 class Quiz extends Component {
+  static navigationOptions = () => ({ title: 'Quiz' })
+
   state = {
     question: 0,
     score: 0,
@@ -128,8 +130,8 @@ class Quiz extends Component {
 }
 
 const mapStateToProps = ({ flashcards }, { navigation }) => {
-  const id = navigation.state.params.id
-  const flashcard = flashcards.find(flashcard => flashcard.id === id)
+  const key = navigation.state.params.key
+  const flashcard = flashcards[key]
 
   return {
     cards: shuffle(flashcard.cards),

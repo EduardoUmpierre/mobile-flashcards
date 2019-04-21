@@ -5,8 +5,13 @@ import DeckSummary from '../DeckSummary'
 import { buttons, containers } from '../../utils/sharedStyles'
 
 class DeckView extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.title,
+  })
+
   render() {
     const { flashcard, navigation } = this.props
+    const isQuizButtonDisabled = flashcard.cards.length === 0
 
     return (
       <View style={styles.container}>
@@ -20,9 +25,20 @@ class DeckView extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[buttons.buttonContainer, { marginBottom: 20 }]}
-            onPress={() => navigation.navigate('Quiz', { id: flashcard.id })}
+            onPress={() =>
+              navigation.navigate('Quiz', { key: navigation.state.params.key })
+            }
+            disabled={isQuizButtonDisabled}
           >
-            <Text style={[buttons.button, buttons.primary]}>Start Quiz</Text>
+            <Text
+              style={[
+                buttons.button,
+                buttons.primary,
+                isQuizButtonDisabled && buttons.disabled,
+              ]}
+            >
+              Start Quiz
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -38,10 +54,11 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ flashcards }, { navigation }) => {
-  const id = navigation.state.params.id
-  const flashcard = flashcards.find(flashcard => flashcard.id === id)
+  const key = navigation.state.params.key
+  const flashcard = flashcards[key]
 
   return {
+    key,
     flashcard,
   }
 }

@@ -1,9 +1,8 @@
-import { RECEIVE_FLASHCARDS } from '../actions'
+import { RECEIVE_FLASHCARDS, ADD_FLASHCARD } from '../actions'
 
 export const initialState = {
-  flashcards: [
-    {
-      id: 'AB123',
+  flashcards: {
+    AB123: {
       name: 'React',
       cards: [
         {
@@ -16,17 +15,17 @@ export const initialState = {
         },
       ],
     },
-    {
-      id: 'AC123',
+    AC123: {
       name: 'English',
       cards: [
         {
-          question: 'Duis elit qui eu nulla irure nostrud sunt culpa officia anim ex eiusmod ipsum minim.',
+          question:
+            'Duis elit qui eu nulla irure nostrud sunt culpa officia anim ex eiusmod ipsum minim.',
           answer: 'Est ex cillum aliqua magna est Lorem ea elit ut excepteur.',
         },
       ],
     },
-  ],
+  },
 }
 
 function flashcards(state = initialState, action) {
@@ -34,7 +33,12 @@ function flashcards(state = initialState, action) {
     case RECEIVE_FLASHCARDS:
       return {
         ...state,
-        flashcards: [...action.flashcards],
+        flashcards: { ...state.flashcards, ...action.flashcards },
+      }
+    case ADD_FLASHCARD:
+      return {
+        ...state,
+        flashcards: { ...state.flashcards, ...action.flashcard },
       }
     default:
       return state
