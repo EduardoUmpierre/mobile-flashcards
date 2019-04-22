@@ -10,6 +10,7 @@ import reducer from './reducers'
 import Quiz from './components/Quiz'
 import DeckForm from './components/DeckForm'
 import CardForm from './components/CardForm'
+import { setLocalNotification } from './utils/helpers'
 
 const Tabs = TabNavigator(
   {
@@ -59,6 +60,10 @@ const Navigator = StackNavigator(
 )
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>

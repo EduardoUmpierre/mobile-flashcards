@@ -2,23 +2,11 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { buttons, containers } from '../../utils/sharedStyles'
-
-function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
-
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
-  }
-
-  return array
-}
+import {
+  clearLocalNotification,
+  setLocalNotification,
+  shuffle,
+} from '../../utils/helpers'
 
 class Quiz extends Component {
   static navigationOptions = () => ({ title: 'Quiz' })
@@ -30,11 +18,21 @@ class Quiz extends Component {
   }
 
   setAnswer = answer => {
-    this.setState(prevState => ({
-      score: answer ? prevState.score + 1 : prevState.score,
-      question: prevState.question + 1,
-      showAnswer: false,
-    }))
+    this.setState(
+      prevState => ({
+        score: answer ? prevState.score + 1 : prevState.score,
+        question: prevState.question + 1,
+        showAnswer: false,
+      }),
+      () => {
+        const { question } = this.state
+        const { cards } = this.props
+
+        if (question === cards.length) {
+          clearLocalNotification().then(setLocalNotification)
+        }
+      }
+    )
   }
 
   toggleAnswer = () => {
